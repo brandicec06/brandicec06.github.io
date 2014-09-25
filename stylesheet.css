@@ -1,3 +1,41 @@
+body{
+	background-color: #D8D8D8;
+}
+
+h1{
+	text-align: center;
+	font-size: 36px;
+	line-height: 10px;
+}
+
+h2,h3,h4,h5,h6 {
+	font-size: 24px;
+	line-height: 10px;
+}
+.links{
+	
+	text-align: justify;
+	width: 100%;
+}
 .info{
 	font-size: 36px;
+	padding-bottom: 10px;
+
+}
+
+#main{
+	background-color: #F0F0F0;
+	margin-right: 10%;
+	margin-left: 10%;
+	padding: 10px;
+}
+
+.pic img{
+
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+
+	max-width: 180px;
+	max-width: 180px;
 }
