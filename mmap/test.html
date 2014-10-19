@@ -41,12 +41,11 @@
 	else {
 		alert("Geolocation is not supported by your web browser. What a shame!");
 	}
-
-
-	
-	request.send("login=PadmaPatil&lat=myLat&lon=myLon");
-
 	}
+	request.send("login=PadmaPatil&lat=myLat&lon=myLng");
+	data= request.responseText;
+	console.log(data);
+	
 	function renderMap()
 	{
 		me = new google.maps.LatLng(myLat, myLng);
