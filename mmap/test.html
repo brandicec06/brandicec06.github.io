@@ -47,14 +47,6 @@
 	request.send("login=PadmaPatil&lat=myLat&lon=myLon");
 
 	}
-	request.onreadystatechange = function() {
-	if (request.readyState == 4 && request.status == 200) {
-		alert("Got data back!");
-		data = request.responseText;
-		document.getElementById("map-canvas").innerHTML = data;
-	}
-};
-
 	function renderMap()
 	{
 		me = new google.maps.LatLng(myLat, myLng);
@@ -102,7 +94,7 @@
 }
 </script>
 </head>
-<body><!--onload="init()"-->
+<body onload="init()">
 	<div id="map_canvas"></div>
 </body>
 </html>
