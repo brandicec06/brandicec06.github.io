@@ -26,7 +26,7 @@
 	{
 		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 		getMyLocation();
-		req();
+	
 	}
 	function getMyLocation()
 	{
@@ -65,26 +65,7 @@
 	service.search(request, callback);
 	}
 	//xml requests
-	function req(){
-		
-		request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
-		request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		
-		request.onreadaystatechange = fucntion(){
-			if (request.readyState == 4 && request.status == 200) {
-				locData = JSON.parse(request.responseText);
-				//locDom = document.getElementById("schedule");
-				//scheduleDom.innerHTML = scheduleData["line"];
-				console.log(locData);
-			}
-			else if (request.readyState == 4 && request.status == 500) {
-			//	scheduleDom = document.getElementById("schedule");
-			//	scheduleDom.innerHTML = '<p><img src="http://www.yiyinglu.com/failwhale/images/Homer_the_New_Fail_Whale_by_edwheeler.jpg" alt="fail" /></p>';
-			}
-		}
-		
-		request.send("login=PadmaPatil&lat=myLat&lon=myLng");
-	}
+
 	
 	
 	// Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
