@@ -65,7 +65,7 @@
 	service.search(request, callback);
 	}
 	//xml requests
-	req(){
+	function req(){
 		var request = new XMLHttpRequest();
 		request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
 		request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -75,7 +75,7 @@
 		request.send("login=PadmaPatil&lat=myLat&lon=myLng");
 	}
 	
-	dataReady(){
+	function dataReady(){
 		if (request.readyState == 4 && request.status == 200) {
 			locData = JSON.parse(request.responseText);
 			//locDom = document.getElementById("schedule");
