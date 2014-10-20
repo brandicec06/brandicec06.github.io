@@ -71,6 +71,7 @@
 	request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 
 	request.onreadaystatechange = function(){
+		console.log(request.readyState);
 		if (request.readyState == 4 && request.status == 200) {
 			alert(request.responseText);
 			locData = JSON.parse(request.responseText);
