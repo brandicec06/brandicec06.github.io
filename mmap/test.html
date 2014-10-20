@@ -65,7 +65,7 @@
 	service.search(request, callback);
 	}
 	//xml requests
-	req(){
+	function req(){
 		
 		request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
 		request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -81,7 +81,7 @@
 			//	scheduleDom = document.getElementById("schedule");
 			//	scheduleDom.innerHTML = '<p><img src="http://www.yiyinglu.com/failwhale/images/Homer_the_New_Fail_Whale_by_edwheeler.jpg" alt="fail" /></p>';
 			}
-		};
+		}
 		
 		request.send("login=PadmaPatil&lat=myLat&lon=myLng");
 	}
