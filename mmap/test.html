@@ -70,7 +70,7 @@
 		request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
 		request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		
-		request.readaystatechange = dataReady;
+		request.onreadaystatechange = dataReady;
 		
 		request.send("login=PadmaPatil&lat=myLat&lon=myLng");
 	}
