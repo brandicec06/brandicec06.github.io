@@ -65,7 +65,7 @@
 	service.search(request, callback);
 	}
 	//xml requests
-	function req(){
+	
 	
 	request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
 	request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -86,7 +86,7 @@
 	};
 
 	request.send("login=PadmaPatil&lat=myLat&lon=myLng");
-}
+
 	
 	
 	// Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
