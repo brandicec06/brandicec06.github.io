@@ -20,12 +20,17 @@
 	var infowindow = new google.maps.InfoWindow();
 	var places;
 
-	request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
-
-	request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	
 
 	function init()
 	{
+		request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
+
+		request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		request.send("login=PadmaPatil&lat=myLat&lon=myLng");
+		data= request.responseText;
+		console.log(data);
+
 		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 		getMyLocation();
 	}
@@ -42,9 +47,7 @@
 		alert("Geolocation is not supported by your web browser. What a shame!");
 	}
 	}
-	request.send("login=PadmaPatil&lat=myLat&lon=myLng");
-	data= request.responseText;
-	console.log(data);
+
 	
 	function renderMap()
 	{
