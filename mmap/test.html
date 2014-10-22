@@ -24,6 +24,11 @@
 
 	function init()
 	{
+		
+
+		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		getMyLocation();
+
 		request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
 		request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 
@@ -46,8 +51,6 @@
 		data= request.responseText;
 		console.log(data);
 
-		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-		getMyLocation();
 		
 	}
 	function getMyLocation()
@@ -63,11 +66,7 @@
 		alert("Geolocation is not supported by your web browser. What a shame!");
 	}
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 84003af517b2359a73d4936c18906ef88ce69293
 	
 	function renderMap()
 	{
