@@ -1,14 +1,34 @@
+html { 
+	height: 100%; 
+}
+body { 
+	font-family: Herculanum;
+	height: 100%; 
+	margin: 0px; 
+	padding: 0px;
+	background-color: black;
+}
+#map_canvas { 
+	height: 100%; 
+	width: 75%;
+	float: left;
+}
 
-html {
-height: 100%;
-font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
+#title {
+	color: orange;
+	text-align: center;
 }
-body {
-height: 100%;
-margin: 0px;
-padding: 0px;
+
+#sidebar {
+	width: 25%;
+	height: 100%;
+	background-color: #800020;
+	float: right;
+	font-size: 20px;
 }
-#map_canvas {
-width: 100%;
-height: 100%;
+#distances {
+	margin-left: 15px;
+}
+#distance_list {
+	font-size: 17px;
 }
