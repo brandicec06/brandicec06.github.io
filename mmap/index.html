@@ -6,7 +6,7 @@
 	<title>Geolocation Map Example</title>
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=places"></script>
-	<link rel="stylesheet" href="stylesheet.css" />
+	<link rel="stylesheet" href="geolocation_map_style.css" />
 
 	<script>
 	var myLat = 0;
@@ -66,7 +66,7 @@
 				request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
 				request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 				request.onreadystatechange = callback;
-				request.send("login=PadmaPatil&lat="+me.lat() + "&lon="+ me.lon());
+				request.send("login=PadmaPatil&lat="+me.lat() + "&lng="+ me.lon());
 				// Calling Google Places API
 				
 			}
@@ -254,7 +254,7 @@
   </head>
   
   <body onload="init()">
-    <h1 id="title">Map</h1>
+    <h1 id="title">Marauder's Map of Tufts</h1>
     <div id="map_canvas"></div>
     <div id="sidebar">
       <p id="distances">Distances:</p>
