@@ -90,22 +90,22 @@
 				})
 			}
 
-			function CharIcon(character){
-
-				if (character.name == "carmen") {
-					return 'images/csandiego.png';
-				} else if (character.name == "nr") {
-					return 'images/nr.png'
-				} else if (character.name == "batman") {
-					return 'images/batman.png'
-				} else if (character.name == "hescott") {
-					return 'images/bh.png'
-				} else if (character.name == "snape") {
-					return 'image/snape.png'
-				} else if (character.name == "waldo") {
-					return 'image/waldo.png'
-
-			}
+			function getIcon(character) 
+      {
+        if (character.name == "carmen") {
+          return 'pics/carmen.png';
+        } else if (character.name == "nr") {
+          return 'pics/nr.png'
+        } else if (character.name == "batman") {
+          return 'pics/batman.png'
+        } else if (character.name == "hescott") {
+          return 'pics/hescott.png'
+        } else if (character.name == "snape") {
+          return 'pics/snape.png'
+        } else if (character.name == "waldo") {
+          return 'pics/waldo.png'
+        }
+      }
 			// Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
 			function charInfo(character)
 			{
