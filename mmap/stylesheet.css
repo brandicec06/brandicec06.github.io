@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 html {
 height: 100%;
 }
@@ -30,3 +31,40 @@ margin-left: 15px;
 #list {
 font-size: 17px;
 }
+=======
+html { 
+	height: 100%; 
+}
+body { 
+
+	height: 100%; 
+	margin: 0px; 
+	padding: 0px;
+	background-color: black;
+}
+#map_canvas { 
+	height: 90%; 
+	width: 100%;
+	float: left;
+}
+
+#title {
+	color: orange;
+	text-align: center;
+}
+
+#info {
+	width: 100%;
+	height: 10%;
+	background-color: #FFFFFF;
+	float: right;
+	font-size: 20px;
+}
+.dist {
+	font-family: Arial;
+	margin-left: 15px;
+}
+#list {
+	font-size: 17px;
+}
+>>>>>>> 40fbf0e3359609f52944bdec36af4b101da0c976
