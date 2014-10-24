@@ -6,7 +6,7 @@
 	<title>Geolocation Map Example</title>
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=places"></script>
-	<link rel="stylesheet" href="geolocation_map_style.css" />
+	<link rel="stylesheet" href="stylesheet.css" />
 
 	<script>
 	var myLat = 0;
@@ -18,44 +18,20 @@
 				center: me,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
-			var map;
-			var marker;
-			var infowindow = new google.maps.InfoWindow();
-			var places;
+	var map;
+	var marker;
+	var infowindow = new google.maps.InfoWindow();
+	var places;
 
-			function init()
-			{
-				request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
-				request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-
-				request.onreadaystatechange = function(){
-					console.log(request.readyState);
-					if (request.readyState == 4 && request.status == 200) {
-						alert(request.responseText);
-						locData = JSON.parse(request.responseText);
-					//locDom = document.getElementById("schedule");
-					//scheduleDom.innerHTML = scheduleData["line"];
-					console.log(locData);
-				}
-				else if (request.readyState == 4 && request.status == 500) {
-					//	scheduleDom = document.getElementById("schedule");
-					//	scheduleDom.innerHTML = '<p><img src="http://www.yiyinglu.com/failwhale/images/Homer_the_New_Fail_Whale_by_edwheeler.jpg" alt="fail" /></p>';
-				}
-			}
-		};
-
-		request.send("login=PadmaPatil&lat=myLat&lon=myLng");
-		data= request.responseText;
-		console.log(data);
-
-
+	function init()
+	{	
 		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 		getMyLocation();
 	}
-
+	//retrieve my location
 	function getMyLocation()
 	{
-				if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
+				if (navigator.geolocation) { 
 					navigator.geolocation.getCurrentPosition(function(position) {
 						myLat = position.coords.latitude;
 						myLng = position.coords.longitude;
@@ -66,7 +42,7 @@
 					alert("Geolocation is not supported by your web browser.  What a shame!");
 				}
 			}
-
+//draw map
 			function renderMap()
 			{
 				me = new google.maps.LatLng(myLat, myLng);
@@ -87,17 +63,56 @@
 					infowindow.open(map, marker);
 				});
 				
+				request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
+				request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				request.onreadystatechange = callback;
+				request.send("login=PadmaPatil&lat="+me.lat() + "&lng="+ me.lon());
 				// Calling Google Places API
-				var request = {
-					location: me,
-					radius: '500',
-					types: ['food']
-				};
-				service = new google.maps.places.PlacesService(map);
-				service.search(request, callback);
+				
 			}
-			
+			function charMark(character){
+				var coord;
+				var mark;
+				coord = new google.maps.coord(character.loc.latitude, character.loc.longitude);
+				var cIcon = CharIcon(character);
+				mark = new google.maps.Marker({
+					map: map,
+					position: coord,
+					title: character.name,
+					icon: cIcon
+				}) ;
+				mark.setMap(map);
+				var info = charInfo(character);
+				google.maps.eve.addListener(mark, 'click',function(){
+					infowindow.close();
+					infowindow.setContent(info);
+					infowindow.open(map,this);
+				})
+			}
+
+			function CharIcon(character){
+
+				if (character.name == "carmen") {
+					return 'images/csandiego.png';
+				} else if (character.name == "nr") {
+					return 'images/nr.png'
+				} else if (character.name == "batman") {
+					return 'images/batman.png'
+				} else if (character.name == "hescott") {
+					return 'images/bh.png'
+				} else if (character.name == "snape") {
+					return 'image/snape.png'
+				} else if (character.name == "waldo") {
+					return 'image/waldo.png'
+				}
+			}
 			// Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
+			function charInfo(character)
+			{
+				str = "Name: " + character.name + "<br>Latitude: " + character.loc.latitude + "<br>Longitude: " + character.loc.longitude + "<br>Note: " + character.loc.note;
+				return str;
+			}
+
 			function callback(results, status)
 			{
 				if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -123,10 +138,128 @@
 					infowindow.open(map, this);
 				});
 			}
-			</script>
-		</head>
 
-		<body onload="init()">
-			<div id="map_canvas"></div>
-		</body>
-		</html>
+			function callback(){
+				var dist = new Object();
+				if(request.readyState == 4 && request.status == 200){
+					data = JSON.parse(request.responseText);
+					for(i=0;i<data.characters.length;i++){
+						createMarkerforcharacter(data.characters[i]);
+						d = calcDist(data.charcters[i]);
+						distances[data.characters[i].name] = d;
+						drawPolylines(data.charcters[i]);
+					}
+					showDist(distances);
+					for(i=0;i<data.students.length;i++){
+						createMarkerforstudent(data.students[i]);
+					}
+				}
+			}
+			 function calcDist(character)
+      {
+        Number.prototype.toRad = function() {
+          return this * Math.PI / 180;
+        }
+
+        var lat2 = character.loc.latitude; 
+        var lon2 = character.loc.longitude; 
+        var lat1 =  me.lat(); 
+        var lon1 = me.lng(); 
+
+        var R = 6371; 
+        var x1 = lat2-lat1;
+        var dLat = x1.toRad();  
+        var x2 = lon2-lon1;
+        var dLon = x2.toRad();  
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+                Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2);  
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = R * c; 
+        var inmiles = d * 0.62137;
+        return inmiles;
+      }
+      //adapted from http://stackoverflow.com/questions/1069666/sorting-javascript-object-by-property-value
+      function showDist(dict)
+      {
+        var sortable = [];
+        for (var key in dict) {
+          sortable.push([key, dict[key]])
+          sortable.sort(function(a, b) {return a[1] - b[1]})
+        }
+        for (var i = 0; i <sortable.length; i++) {
+          document.getElementById("distance_list").innerHTML += "<li>" + sortable[i][0] + ": " + sortable[i][1] + " miles away</li>";
+        }
+      }
+      //create polyline between me and given character
+      function drawPolylines(character)
+      {
+        var coordinates = [
+          new google.maps.LatLng(character.loc.latitude, character.loc.longitude),
+          me
+        ]; 
+        var polyline = new google.maps.Polyline({
+          path: coordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+        polyline.setMap(map);
+      }
+      //create marker for given student
+      function createMarkerforstudent(student)
+      {
+        var marker;
+        var Latlng;
+        Latlng = new google.maps.LatLng(student.lat, student.lng);
+          marker = new google.maps.Marker({
+            position: Latlng,
+            map: map,
+            title: student.login
+            });
+          marker.setMap(map);
+          var infoContent = getStudentInfoContent(student);
+          google.maps.event.addListener(marker, 'click', function() {
+          infowindow.close();
+          infowindow.setContent(infoContent);
+          infowindow.open(map, this);
+        });
+      }
+      //format student info window
+      function getStudentInfoContent(student)
+      {
+        str = "Login: " + student.login + "<br>Latitude: " + student.lat + "<br>Longitude: " + student.lng + "<br>Timestamp: " + student.created_at;
+        return str;
+      }
+      //MY CALLBACK FUNCTION
+      function callbackfunc() 
+      {
+        var distances = new Object();
+        if (request.readyState == 4 && request.status == 200) {
+          data = JSON.parse(request.responseText);
+          for (i = 0; i < data.characters.length; i++) { 
+            createMarkerforcharacter(data.characters[i]);
+            d = getDistance(data.characters[i]);
+            distances[data.characters[i].name] = d;
+            drawPolylines(data.characters[i]);
+          }
+          displayDistances(distances);
+          for (i = 0; i < data.students.length; i++) { 
+            createMarkerforstudent(data.students[i]);
+          }
+        }
+      }
+    </script>
+  </head>
+  
+  <body onload="init()">
+    
+    <div id="map_canvas"></div>
+    <div id="info">
+      <p class="dist">Distances:</p>
+      <ul id="list">
+      </ul>
+    </div>
+  </body>
+</html>
