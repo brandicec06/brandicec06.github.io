@@ -2,7 +2,7 @@ html {
 	height: 100%; 
 }
 body { 
-	font-family: Herculanum;
+
 	height: 100%; 
 	margin: 0px; 
 	padding: 0px;
@@ -19,16 +19,16 @@ body {
 	text-align: center;
 }
 
-#sidebar {
+#info {
 	width: 25%;
 	height: 100%;
-	background-color: #800020;
+	background-color: #FFFFFF;
 	float: right;
 	font-size: 20px;
 }
-#distances {
+#dist {
 	margin-left: 15px;
 }
-#distance_list {
+#list {
 	font-size: 17px;
 }
