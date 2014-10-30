@@ -28,8 +28,8 @@
 			if(event.which == 13){
 				var date = Date();
 				$("div").after('<p>'+date+ (" - ") + input +'</p>');
-				//txt = document.getElementById("msg").value;
-				localStorage[new Date().getTime()] = input;
+				txt = document.getElementById("msg").value;
+				localStorage[new Date().getTime()] = txt;
 				//$("input").val('');
 			}
 		});
