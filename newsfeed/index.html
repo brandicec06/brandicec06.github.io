@@ -21,16 +21,19 @@
 	function store()
 	{
 		$(document).ready(function(){
-			
-			$(document).keypress(function(event){
+		
+		$(document).keypress(function(event){
 
-				var input = $("input").val();
-				if(event.which == 13){
-					var date = Date();
-					localStorage[new Date().getTime()] = input;
-				}
-			});
+			var input = $("input").val();
+			if(event.which == 13){
+				var date = Date();
+				$("div").after('<p>'+date+ (" - ") + input +'</p>');
+				//txt = document.getElementById("msg").value;
+				localStorage[new Date().getTime()] = input;
+				//$("input").val('');
+			}
 		});
+	});
 		
 		reload();
 	}
