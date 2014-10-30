@@ -8,7 +8,7 @@
 	<script>
 
 	$(document).ready(function(){
-		var input = document.getElementById("msg");
+		var input = $("input").val();
 		$(document).keypress(function(event){
 
 			
@@ -31,7 +31,7 @@
 	}
 	function store()
 	{
-		txt = $("input").val();
+		txt = document.getElementById("msg").value;
 		localStorage[new Date().getTime()] = txt;
 		reload();
 	}
