@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>My News Feed</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+
+	$(document).ready(function(){
+
+		$(document).keypress(function(event){
+
+			var input = $("input").val();
+			if(event.which == 13){
+				var date = Date();
+				$("div").after('<p>'+date+ (" - ") + input +'</p>');
+				$("input").val('');
+			}
+		});
+	});
+
+	function reload()
+	{
+		elem = document.getElementById("news");
+		output = "";
+		for (key in localStorage) {
+			output = output + "<p>" + localStorage[key] + "</p>\n";
+		}
+		elem.innerHTML = output;
+	}
+	function store()
+	{
+		txt = $("input").val();
+		localStorage[new Date().getTime()] = txt;
+		reload();
+	}
+
+	</script>
+</head>
+
+<body>
+	<h1>My News Feed</h1>
+	<h3>My news update: <input type="text" name="msg" id="msg" size="30" onchange="store()"/></h3>
+	<div id="news">News...</div>
+</body>
+</html>
